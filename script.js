@@ -35,6 +35,17 @@ const m2BatteryYStart = 240;
 const m2BatterySpacing = 35;
 
 const startTime = performance.now();
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function setClockHands(prefix, hours, minutes) {
+  const h12 = hours % 12;
+  const hourAngle = (h12 + minutes / 60) * 30;
+  const minuteAngle = minutes * 6;
+  document.getElementById(`${prefix}-clock-hour`).setAttribute('transform', `rotate(${hourAngle})`);
+  document.getElementById(`${prefix}-clock-minute`).setAttribute('transform', `rotate(${minuteAngle})`);
+}
+
 const m1BatteryCount = COUNT;
 const m1QueueBase = { x: 40, y: 500, spacing: 60 };
 const m1DoneBase = { x: 420, y: 500, spacing: 60 };
@@ -249,6 +260,14 @@ function updateMethod1(elapsed) {
     screen.setAttribute('fill', 'rgba(0,122,255,0.15)');
     screenText.textContent = 'CSV';
   }
+
+  const m1Day = Math.floor(t / cycleTime) + 1;
+  const m1Mins = (bt / cycleTime) * 8 * 60;
+  const m1H = 9 + Math.floor(m1Mins / 60);
+  const m1M = m1Mins % 60;
+  setClockHands('m1', m1H, m1M);
+  document.getElementById('m1-clock-time').textContent = `${pad(m1H)}:${pad(Math.floor(m1M))}`;
+  document.getElementById('m1-clock-day').textContent = `第 ${m1Day}/4 天`;
 }
 
 function updateMethod2(elapsed) {
@@ -306,6 +325,15 @@ function updateMethod2(elapsed) {
   m2Person.setAttribute('transform', `translate(${M2.personPos.x},${M2.personPos.y})`);
   const fadeOut = M2.phase === 'charging' && Math.hypot(M2.personPos.x - 1230, M2.personPos.y - 640) < 40;
   m2Person.setAttribute('opacity', fadeOut ? '0.25' : '1');
+
+  const m2TotalMins = (t / cycleDuration) * 24 * 60;
+  const m2AbsMins = 9 * 60 + m2TotalMins;
+  const m2H = Math.floor(m2AbsMins / 60) % 24;
+  const m2M = m2AbsMins % 60;
+  const m2DayN = m2AbsMins / 60 >= 24 ? 2 : 1;
+  setClockHands('m2', m2H, m2M);
+  document.getElementById('m2-clock-time').textContent = `${pad(m2H)}:${pad(Math.floor(m2M))}`;
+  document.getElementById('m2-clock-day').textContent = `第 ${m2DayN} 天 · 24h`;
 }
 
 function render() {

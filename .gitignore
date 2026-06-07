@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# make_gif.py 录制临时产物
+_frames/
+_recording/
+_palette.png
+script.backup.js
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini

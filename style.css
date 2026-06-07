@@ -1,0 +1,212 @@
+:root {
+  --bg: #f5f5f7;
+  --panel: #ffffff;
+  --device: #2c2c2e;
+  --device-face: #3a3a3c;
+  --device-border: #48484a;
+  --bat-bg: #e8e8ed;
+  --bat-border: #c7c7cc;
+  --bat-full: #34c759;
+  --bat-charge: #007aff;
+  --bat-dis: #ff9500;
+  --text: #1d1d1f;
+  --subtext: #86868b;
+  --line: #c7c7cc;
+  --cloud: #007aff;
+  --db: #5856d6;
+  --upload: #00c8e0;
+  --config: #000000;
+}
+
+* { box-sizing: border-box; }
+
+html, body { 
+  margin: 0; 
+  min-height: 100vh; 
+  background: var(--bg); 
+  font-family: 'Noto Sans SC', sans-serif; 
+}
+
+body { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.container { 
+  width: 1280px; 
+  height: 720px; 
+  background: var(--panel); 
+  border-radius: 16px; 
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08); 
+  position: relative; 
+  overflow: hidden; 
+}
+
+.prototype-label { 
+  position: absolute; 
+  top: 12px; 
+  right: 20px; 
+  background: rgba(0,122,255,0.1); 
+  color: #007aff; 
+  padding: 4px 12px; 
+  border-radius: 20px; 
+  font-size: 12px; 
+  font-weight: 500; 
+  letter-spacing: 1px; 
+}
+
+svg { 
+  width: 100%; 
+  height: 100%; 
+  display: block; 
+}
+
+.panel-bg { fill: var(--panel); }
+
+.header-text { 
+  fill: var(--text); 
+  font-weight: 700; 
+  font-size: 22px; 
+}
+
+.header-sub { 
+  fill: var(--subtext); 
+  font-size: 13px; 
+}
+
+.footer-text { 
+  fill: #aeaeb2; 
+  font-size: 11px; 
+}
+
+.section-label { 
+  fill: var(--subtext); 
+  font-size: 13px; 
+  font-weight: 500; 
+}
+
+.battery-body { 
+  fill: var(--bat-bg); 
+  stroke: var(--bat-border); 
+  stroke-width: 1.5; 
+}
+
+.battery-fill { 
+  fill: var(--bat-full); 
+}
+
+.battery-label { 
+  fill: var(--subtext); 
+  font-size: 11px; 
+  text-anchor: middle; 
+}
+
+.battery-percent { 
+  fill: var(--text); 
+  font-size: 12px; 
+  font-weight: 700; 
+  text-anchor: middle; 
+  dominant-baseline: middle; 
+}
+
+.cable { 
+  fill: none; 
+  stroke: var(--line); 
+  stroke-width: 2; 
+  stroke-linecap: round; 
+}
+
+.cable.charge { 
+  stroke: var(--bat-charge); 
+  stroke-width: 3.5;
+  stroke-dasharray: 10 6;
+  animation: cable-flow-forward 0.7s linear infinite;
+}
+
+.cable.discharge { 
+  stroke: var(--bat-dis); 
+  stroke-width: 3.5;
+  stroke-dasharray: 10 6;
+  animation: cable-flow-backward 0.7s linear infinite;
+}
+
+@keyframes cable-flow-forward {
+  to { stroke-dashoffset: -16; }
+}
+
+@keyframes cable-flow-backward {
+  to { stroke-dashoffset: 16; }
+}
+
+.port { 
+  fill: #d1d1d6; 
+  stroke: #aaaaaa; 
+  stroke-width: 1; 
+}
+
+.port.active { 
+  fill: var(--bat-charge); 
+}
+
+.person-skin { fill: #d4a574; }
+.person-jacket { fill: #1a3a5c; }
+.person-jacket-active { fill: #254e7a; }
+.person-pants { fill: #2c3e50; }
+.person-boots { fill: #1a1a1a; }
+.person-helmet { fill: #f5a623; }
+
+.device-body { fill: var(--device); }
+
+.device-face { 
+  fill: var(--device-face); 
+  stroke: var(--device-border); 
+  stroke-width: 1; 
+}
+
+.device-light { 
+  fill: #34c759; 
+  filter: url(#glow); 
+}
+
+#m1-laptop-screen {
+  transition: fill 0.3s ease;
+}
+
+.icon-cloud { fill: var(--cloud); }
+
+.icon-cloud.active { 
+  fill: var(--cloud);
+  filter: drop-shadow(0 0 6px rgba(0,122,255,0.45));
+}
+
+.icon-db { fill: #a1a1a6; }
+
+.icon-db.active { 
+  fill: var(--db); 
+}
+
+.data-path { 
+  fill: none; 
+  stroke: var(--line); 
+  stroke-width: 1.5; 
+  stroke-dasharray: 5 4; 
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.data-path.flow-data {
+  stroke: var(--db);
+  stroke-width: 2.2;
+  animation: data-flow-forward 1s linear infinite;
+}
+
+.data-path.flow-control {
+  stroke: #1d1d1f;
+  stroke-width: 2;
+  animation: data-flow-forward 1.4s linear infinite;
+}
+
+@keyframes data-flow-forward {
+  to { stroke-dashoffset: -18; }
+}
